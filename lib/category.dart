@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:unit_converter/converter_route.dart';
+import 'package:unit_converter/unit.dart';
 
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(_rowHeight / 2);
@@ -7,11 +9,13 @@ class Category extends StatelessWidget {
 
   final String name;
   final IconData iconLocation;
+  final List<Unit> units;
 
   const Category({
     Key key,
     @required this.name,
     @required this.iconLocation,
+    @required this.units,
   }) : assert(name != null),
        assert(iconLocation != null),
        super(key: key);
@@ -44,7 +48,10 @@ class Category extends StatelessWidget {
       highlightColor: Colors.teal,
       splashColor: Colors.teal,
       onTap: () {
-        print("I was tapped");
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) {
+            return ConverterRoute(title: name, units: units);
+          }));
       },
       child: Padding(
         padding: EdgeInsets.all(8.0),
